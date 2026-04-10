@@ -32,8 +32,8 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/road-trip-final.git
-   cd road-trip-final
+   git clone https://github.com/Nih-al/Road-Trip-Planner.git
+   cd Road-Trip-Planner
    ```
 
 2. **Install dependencies:**
