@@ -104,7 +104,9 @@ header h1 {
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
   letter-spacing: -1px;
 }
 
@@ -493,7 +495,9 @@ main.panel-stack > section:nth-child(3) { animation-delay: 0.2s; }
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color), #0099ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
   line-height: 1.1;
 }
 
@@ -514,7 +518,9 @@ main.panel-stack > section:nth-child(3) { animation-delay: 0.2s; }
 .tank-hero.electric .tank-value {
   background: linear-gradient(135deg, #4caf50, #81c784);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .tank-hero.electric .tank-icon-wrap {
