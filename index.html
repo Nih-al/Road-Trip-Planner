@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVAP Road Trip Planner</title>
+    <!-- Use Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <!-- Fullscreen Map Background -->
+    <div id="map"></div>
+    
+    <!-- UI Overlay container -->
+    <div class="overlay-container">
+      <header class="glass-panel">
+        <h1>SVAP</h1>
+        <p>Smart Vehicle-Aware Planner</p>
+      </header>
+      
+      <main class="panel-stack">
+        <!-- Vehicle Section -->
+        <section class="glass-panel" id="vehicle-section">
+          <h2>Vehicle Details</h2>
+          <form id="vehicle-form">
+            <div class="input-group">
+              <input type="text" id="vehicle-make" placeholder="Make (e.g., Toyota)" required>
+              <input type="text" id="vehicle-model" placeholder="Model (e.g., Camry)" required>
+              <input type="number" id="vehicle-year" placeholder="Year (e.g., 2021)" required>
+            </div>
+            
+            <div class="fallback-inputs hidden" id="manual-vehicle-inputs">
+               <p class="alert alert-warning">API info not found. Input specs manually.</p>
+               <input type="number" step="0.1" id="vehicle-fuel-cap" placeholder="Fuel capacity (L)">
+               <input type="number" step="0.1" id="vehicle-mileage" placeholder="Mileage (km/L)">
+            </div>
+            
+            <button type="submit" class="btn primary">Lookup & Validate</button>
+          </form>
+          <div id="vehicle-health-alert" class="alert hidden"></div>
+          
+          <!-- Vehicle Specs Display - appears after successful lookup -->
+          <div class="vehicle-specs-card hidden" id="vehicle-specs-card">
+            <div class="specs-header">
+              <h3 id="specs-car-name">—</h3>
+              <span class="specs-badge" id="specs-source-badge">Database</span>
+            </div>
+            
+            <!-- Tank capacity - hero display -->
+            <div class="tank-hero" id="tank-hero">
+              <div class="tank-icon-wrap">
+                <svg class="tank-icon" viewBox="0 0 64 64" width="48" height="48">
+                  <rect x="8" y="14" width="40" height="36" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="48" y="22" width="8" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <rect x="14" y="20" width="28" height="24" rx="2" fill="currentColor" opacity="0.15" id="tank-fill-rect"/>
+                  <rect x="14" y="20" width="28" height="24" rx="2" fill="currentColor" opacity="0.3" class="tank-fill-anim"/>
+                </svg>
+              </div>
+              <div class="tank-info">
+                <span class="tank-value" id="spec-tank-value">—</span>
+                <span class="tank-label">Fuel Tank Capacity</span>
+              </div>
+            </div>
+            
+            <!-- Other specs grid -->
+            <div class="specs-grid">
+              <div class="spec-tile" id="spec-mileage">
+                <span class="spec-tile-icon">🛣️</span>
+                <span class="spec-tile-value" id="spec-mileage-val">—</span>
+                <span class="spec-tile-label">Mileage</span>
+              </div>
+              <div class="spec-tile" id="spec-range">
+                <span class="spec-tile-icon">📏</span>
+                <span class="spec-tile-value" id="spec-range-val">—</span>
+                <span class="spec-tile-label">Est. Range</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trip Section -->
+        <section class="glass-panel" id="trip-section">
+          <h2>Trip Details</h2>
+          <form id="trip-form">
+            <div class="input-group">
+              <input type="text" id="start-location" placeholder="Start Location" required>
+              <input type="text" id="dest-location" placeholder="Destination" required>
+              <input type="time" id="departure-time" required aria-label="Departure Time">
+            </div>
+            <div class="input-group mileage-override-group">
+              <label for="mileage-override" class="input-label">
+                ⛽ Your Car Mileage <span class="label-hint">(km/L — lower value = more fuel stops)</span>
+              </label>
+              <div class="mileage-input-row">
+                <input type="number" step="0.1" min="1" max="50" id="mileage-override" placeholder="e.g. 12" aria-label="Car mileage in km per litre">
+                <span class="mileage-unit">km/L</span>
+              </div>
+            </div>
+            <button type="submit" class="btn primary">Plan Route</button>
+          </form>
+        </section>
+        
+        <!-- Live Tracking Section -->
+        <section class="glass-panel hidden" id="live-section">
+          <h2>Live Tracking</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+               <span class="label">ETA</span>
+               <span class="value" id="live-eta">--:--</span>
+            </div>
+            <div class="stat-box">
+               <span class="label">Est. Fuel %</span>
+               <span class="value" id="live-fuel">--%</span>
+            </div>
+          </div>
+          <p class="status-msg" id="tracking-status"></p>
+          <button class="btn secondary" id="btn-start-tracking">Start Live Tracking</button>
+        </section>
+      </main>
+    </div>
+
+    <!-- Suggested Stops Floating Panel -->
+    <div class="stops-panel glass-panel hidden" id="stops-panel">
+       <h3>Suggested Stops</h3>
+       <ul id="stops-list" class="stops-list"></ul>
+    </div>
+    
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
