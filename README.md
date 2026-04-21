@@ -2,8 +2,6 @@
 
 SVAP is an intelligent, reactive web-based road trip assistant designed to tailor routing and stops specifically to your vehicle's physical capabilities. Instead of relying on generic map navigation, SVAP queries real-world vehicle databases to calculate the true limits of your car's range, ensuring you never run out of fuel halfway to your destination.
 
-![SVAP Dashboard Interface Preview](./public/preview.png) *(Preview image placeholder)*
-
 ## ✨ Features
 
 - 🚘 **Vehicle Intelligence & Database:** Simply input your vehicle's Make, Model, and Year. SVAP queries the API Ninjas car database and falls back to a massive built-in local database for pinpoint accuracy on your fuel tank capacity and expected MPG.
