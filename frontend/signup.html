@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVAP — Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00f0ff;
+            --secondary-color: #ff003c;
+            --bg-color: #0d0e15;
+            --surface-color: rgba(20, 22, 35, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a5b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --danger-color: #ff4d4d;
+            --success-color: #00ff66;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Animated background orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+
+        .bg-orb.orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary-color);
+            top: -15%;
+            right: -10%;
+            animation-duration: 10s;
+        }
+
+        .bg-orb.orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-color);
+            bottom: -15%;
+            left: -10%;
+            animation-duration: 12s;
+            animation-delay: -4s;
+        }
+
+        .bg-orb.orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #7b2ff7;
+            top: 40%;
+            left: 50%;
+            animation-duration: 9s;
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -30px) scale(1.08); }
+        }
+
+        /* Signup card */
+        .signup-card {
+            position: relative;
+            z-index: 10;
+            background: var(--surface-color);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 400px;
+            animation: cardIn 0.6s ease forwards;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(24px) scale(0.96); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .signup-card:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Branding */
+        .brand {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .brand p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+
+        /* Inputs */
+        .input-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            outline: none;
+            margin-bottom: 1rem;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-color);
+            background: rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Label */
+        .field-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Button */
+        .btn-signup {
+            width: 100%;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--primary-color), #0099ff);
+            color: #000;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.35);
+        }
+
+        .btn-signup:active {
+            transform: translateY(0);
+        }
+
+        /* Shimmer on button */
+        .btn-signup::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; bottom: 0;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: btnShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes btnShimmer {
+            0%   { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        /* Alert messages */
+        .signup-alert {
+            display: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: shake 0.35s ease;
+        }
+
+        .signup-alert.error {
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .signup-alert.success {
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            animation: none;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%      { transform: translateX(-6px); }
+            40%      { transform: translateX(6px); }
+            60%      { transform: translateX(-4px); }
+            80%      { transform: translateX(4px); }
+        }
+
+        /* Footer text */
+        .signup-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .signup-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .signup-footer a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- Signup Card -->
+    <div class="signup-card">
+        <div class="brand">
+            <h1>SVAP</h1>
+            <p>Create your account</p>
+        </div>
+
+        <div class="signup-alert" id="signup-alert"></div>
+
+        <label class="field-label" for="name">Name</label>
+        <input class="input-field" type="text" id="name" placeholder="John Doe" />
+
+        <label class="field-label" for="email">Email</label>
+        <input class="input-field" type="email" id="email" placeholder="you@example.com" />
+
+        <label class="field-label" for="password">Password</label>
+        <input class="input-field" type="password" id="password" placeholder="••••••••" />
+
+        <button class="btn-signup" id="btn-signup" onclick="signup()">Create Account</button>
+
+        <div class="signup-footer">
+            <p>Already have an account? <a href="login.html">Sign In</a></p>
+        </div>
+    </div>
+
+    <script src="signup.js"></script>
+</body>
+</html>

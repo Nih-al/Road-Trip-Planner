@@ -98,13 +98,40 @@ input, select, button {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* ── Header auto-transparency ─────────────────────────────── */
+header.glass-panel {
+  transition: opacity 0.8s ease, background 0.8s ease,
+              backdrop-filter 0.8s ease, box-shadow 0.8s ease,
+              border-color 0.8s ease, transform 0.3s ease;
+}
+
+header.glass-panel.header-transparent {
+  opacity: 0.15;
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  box-shadow: none;
+  border-color: transparent;
+}
+
+header.glass-panel.header-transparent:hover {
+  opacity: 1;
+  background: var(--surface-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--glass-shadow);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
 /* Typography styles */
 header h1 {
   font-size: 2.5rem;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
   letter-spacing: -1px;
 }
 
@@ -493,7 +520,9 @@ main.panel-stack > section:nth-child(3) { animation-delay: 0.2s; }
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color), #0099ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
   line-height: 1.1;
 }
 
@@ -514,7 +543,9 @@ main.panel-stack > section:nth-child(3) { animation-delay: 0.2s; }
 .tank-hero.electric .tank-value {
   background: linear-gradient(135deg, #4caf50, #81c784);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .tank-hero.electric .tank-icon-wrap {
@@ -576,5 +607,79 @@ main.panel-stack > section:nth-child(3) { animation-delay: 0.2s; }
   background: rgba(0, 255, 102, 0.08);
   border-color: rgba(0, 255, 102, 0.3);
   color: #00ff66;
+}
+
+/* ── Trip History ──────────────────────────────────────────── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 5px;
+}
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  padding: 1.5rem 0;
+}
+
+.history-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.history-card:hover {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.1);
+  border-left-color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+.history-card .history-route {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.history-card .history-route .history-arrow {
+  color: var(--primary-color);
+  font-size: 0.75rem;
+}
+
+.history-card .history-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.history-card .history-meta .history-badge {
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--primary-color);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.7rem;
 }
 

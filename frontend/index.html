@@ -16,9 +16,12 @@
     
     <!-- UI Overlay container -->
     <div class="overlay-container">
-      <header class="glass-panel">
-        <h1>SVAP</h1>
-        <p>Smart Vehicle-Aware Planner</p>
+      <header class="glass-panel" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <h1>SVAP</h1>
+          <p>Smart Vehicle-Aware Planner</p>
+        </div>
+        <button class="btn secondary" onclick="logout()" id="btn-logout" style="padding:8px 16px; font-size:0.85rem;">Logout</button>
       </header>
       
       <main class="panel-stack">
@@ -101,6 +104,17 @@
             </div>
             <button type="submit" class="btn primary">Plan Route</button>
           </form>
+        </section>
+
+        <!-- Trip History Section -->
+        <section class="glass-panel" id="history-section">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+            <h2 style="margin-bottom:0;">Trip History</h2>
+            <button class="btn secondary" id="btn-refresh-history" style="padding:6px 12px; font-size:0.75rem;">↻ Refresh</button>
+          </div>
+          <div id="history-list" class="history-list">
+            <p class="history-empty" id="history-empty">Loading trips...</p>
+          </div>
         </section>
         
         <!-- Live Tracking Section -->

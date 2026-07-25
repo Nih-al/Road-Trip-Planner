@@ -15,16 +15,16 @@ L.Icon.Default.mergeOptions({
 
 export function initMap(elementId) {
   if (mapInstance) return mapInstance;
-  
-  mapInstance = L.map(elementId, { zoomControl: false }).setView([20.5937, 78.9629], 5); // Center India
 
-  // Use standard OSM tiles — CSS filter handles dark mode.
+  mapInstance = L.map(elementId, { zoomControl: false }).setView([33.693, 80.391], 5.2); // Custom center and zoom
+
+  // Use standard OSM tiles
   // These tiles show all roads, labels, POIs etc. properly.
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: '&copy; <a href="https://www.openstreetmap.in/">OpenStreetMap India</a> contributors',
     maxZoom: 19
   }).addTo(mapInstance);
-  
+
   // Move zoom control
   L.control.zoom({ position: 'bottomright' }).addTo(mapInstance);
 
@@ -41,7 +41,7 @@ export function initMap(elementId) {
 
 export function drawRoute(geoJsonGeometry) {
   if (!mapInstance) return;
-  
+
   if (currentRouteLayer) {
     mapInstance.removeLayer(currentRouteLayer);
   }
@@ -71,12 +71,12 @@ export function drawRoute(geoJsonGeometry) {
   try {
     const bounds = currentRouteLayer.getBounds();
     if (bounds.isValid()) {
-      mapInstance.fitBounds(bounds, { 
+      mapInstance.fitBounds(bounds, {
         padding: [60, 60],
         paddingTopLeft: [450, 60] // account for left sidebar
       });
     }
-  } catch(e) {
+  } catch (e) {
     console.warn('Could not fit bounds:', e);
   }
 }
@@ -102,7 +102,7 @@ export function addMarker(lat, lon, popupText, type = 'default') {
 
   const color = colorMap[type] || '#fff';
   const size = sizeMap[type] || 14;
-  
+
   const customIcon = L.divIcon({
     className: 'custom-marker',
     html: `<div style="background-color: ${color}; width: ${size}px; height: ${size}px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 12px ${color};"></div>`,
@@ -114,7 +114,7 @@ export function addMarker(lat, lon, popupText, type = 'default') {
   if (popupText) {
     marker.bindPopup(`<b>${popupText}</b>`);
   }
-  
+
   return marker;
 }
 
@@ -125,15 +125,15 @@ export function clearMarkers() {
 }
 
 export function centerOn(lat, lon, zoom = 14) {
-    if (mapInstance) {
-        mapInstance.setView([lat, lon], zoom);
-    }
+  if (mapInstance) {
+    mapInstance.setView([lat, lon], zoom);
+  }
 }
 
 export function onMapClick(callback) {
-    if (mapInstance) {
-        mapInstance.on('click', (e) => {
-            callback(e.latlng.lat, e.latlng.lng);
-        });
-    }
+  if (mapInstance) {
+    mapInstance.on('click', (e) => {
+      callback(e.latlng.lat, e.latlng.lng);
+    });
+  }
 }
